@@ -1,2 +1,2 @@
-# Project_Kim
-Team.KHPT 김비서 프로젝트
+# 김비서 : 사용자 맞춤 취업 AI 비서
+Team.KHPT
