@@ -8,3 +8,6 @@ SARAMIN_KEY=<saramin-api-key>
 DEBUG=True
 SECRET_KEY=1234
 ```
+
+---
+<img width="100%" src="https://github.com/Team-KHPT/Project_Kim/blob/main/static/test.gif"/>
