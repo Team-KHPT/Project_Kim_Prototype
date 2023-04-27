@@ -1,5 +1,6 @@
 # 김비서 : 사용자 맞춤 취업 AI 비서
 Team.KHPT
+Powered by OpenAI API & Saramin API
 
 ## 실행하기
 `manage.py`와 같은 위치에 아래와 같이 `.env` 파일을 추가해주세요.
