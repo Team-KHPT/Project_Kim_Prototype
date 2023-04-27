@@ -1,6 +1,8 @@
 # 김비서 : 사용자 맞춤 취업 AI 비서
 Team.KHPT
-Powered by OpenAI API & Saramin API
+
+
+Made with `Django` + `ChatGPT` + `Saramin`
 
 ## 실행하기
 `manage.py`와 같은 위치에 아래와 같이 `.env` 파일을 추가해주세요.
@@ -22,3 +24,5 @@ $ python manage.py runserver
 
 ---
 <img width="100%" src="https://github.com/Team-KHPT/Project_Kim/blob/main/static/test.gif"/>
+
+Powered by <a href="https://www.saramin.co.kr" target="_blank">취업 사람인</a>
