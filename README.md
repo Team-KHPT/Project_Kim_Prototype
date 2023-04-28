@@ -23,6 +23,6 @@ $ python manage.py runserver
 
 
 ---
-<img width="100%" src="https://github.com/Team-KHPT/Project_Kim/blob/main/static/test.gif"/>
+<img width="100%" src="https://raw.githubusercontent.com/Team-KHPT/Project_Kim/main/static/test.gif"/>
 
 Powered by <a href="https://www.saramin.co.kr" target="_blank">취업 사람인</a>
