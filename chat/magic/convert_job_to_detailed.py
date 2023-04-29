@@ -1,6 +1,6 @@
 import openai
 
-from chat.utils import get_detailed_job_cd_with
+from chat import utils
 
 
 def get_prompts(job_cd: int) -> list:
@@ -12,7 +12,7 @@ If you picked multiple codes, please separate them with commas.
 If you can't answer, say error.
 
 Table
-{get_detailed_job_cd_with(job_cd)}
+{utils.get_detailed_job_cd_with(job_cd)}
 '''
          },
         {'role': 'user', 'content': '''백엔드 개발자'''},
@@ -33,7 +33,7 @@ def convert_job_to_detailed(job_cd: str, messages: list) -> str:
     else:
         job_cd = int(job_cd)
     print(get_prompts(job_cd))
-    if len(get_detailed_job_cd_with(job_cd)) < 1:
+    if len(utils.get_detailed_job_cd_with(job_cd)) < 1:
         return ''
     messages[:0] = get_prompts(job_cd)
     completion = openai.ChatCompletion.create(
