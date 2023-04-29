@@ -26,9 +26,8 @@ class Chat(views.View):
     def get(request):
         return render(request, 'chat.html')
 
-    @staticmethod
     @method_decorator(ratelimit(key='ip', rate='30/h'))
-    def post(request):
+    def post(self, request):
         messages = json.loads(request.body)
         response = StreamingHttpResponse(magic.stream_chatting_response(messages), content_type="text/event-stream")
         response['Cache-Control'] = 'no-cache'
@@ -67,9 +66,8 @@ def analyze(messages: list):
 
 
 class AnalyzeChat(views.View):
-    @staticmethod
     @method_decorator(ratelimit(key='ip', rate='10/h'))
-    def post(request):
+    def post(self, request):
         messages = json.loads(request.body)
         job_list = analyze(messages)
         return JsonResponse({'jobs': job_list})
