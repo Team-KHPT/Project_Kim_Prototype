@@ -13,6 +13,14 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ["https://kim.gbsw.hs.kr", "https://www.kim.gbsw.hs.kr"]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+    }
+}
 
 
 INSTALLED_APPS = [
