@@ -61,6 +61,11 @@ def analyze(messages: list):
     extended_edu_lvl = extended_edu_lvl.replace(' ', '')
     loc_mcd = loc_mcd.replace(' ', '')
 
+    detailed_job_code = detailed_job_code.replace('-1', '')
+    extended_job_type = extended_job_type.replace('-1', '')
+    extended_edu_lvl = extended_edu_lvl.replace('-1', '')
+    loc_mcd = loc_mcd.replace('-1', '')
+
     response = utils.job_info_request(detailed_job_code, extended_job_type, extended_edu_lvl, loc_mcd)
     return response['jobs']['job']
 
