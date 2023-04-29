@@ -15,6 +15,7 @@ def opening_comment(request):
 
     response = StreamingHttpResponse(content_iterator(), content_type="text/event-stream")
     response['Cache-Control'] = 'no-cache'
+    response['X-Accel-Buffering'] = 'no'
     return response
 
 
@@ -28,6 +29,7 @@ class Chat(views.View):
         messages = json.loads(request.body)
         response = StreamingHttpResponse(magic.stream_chatting_response(messages), content_type="text/event-stream")
         response['Cache-Control'] = 'no-cache'
+        response['X-Accel-Buffering'] = 'no'
         return response
 
 
