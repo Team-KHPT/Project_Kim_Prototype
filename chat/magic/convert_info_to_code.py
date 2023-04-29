@@ -1,6 +1,6 @@
 import openai
 
-from chat.utils import get_job_type_data, get_loc_mcd_data, get_job_cd_data, get_edu_lvl_data
+from chat import utils
 
 
 prompts = [
@@ -10,16 +10,16 @@ prompts = [
 none은 -1 이라고 출력해줘.
 
 근무 형태 테이블.
-{get_job_type_data()}
+{utils.get_job_type_data()}
 
 지역 테이블.
-{get_loc_mcd_data()}
+{utils.get_loc_mcd_data()}
 
 직무 테이블.
-{get_job_cd_data()}
+{utils.get_job_cd_data()}
 
 학력 테이블.
-{get_edu_lvl_data()}
+{utils.get_edu_lvl_data()}
 '''
      },
     {'role': 'user', 'content': '''info: [직무: 유치원교사]'''},
