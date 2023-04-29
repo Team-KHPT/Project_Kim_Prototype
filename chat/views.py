@@ -6,7 +6,6 @@ from django.shortcuts import render
 
 # Magic = ChatGPT assist
 from chat import magic, utils
-from chat.utils import get_detailed_job_cd_with
 
 
 def opening_comment(request):
