@@ -3,6 +3,8 @@ import json
 from django import views
 from django.http import StreamingHttpResponse, JsonResponse
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django_ratelimit.decorators import ratelimit
 
 # Magic = ChatGPT assist
 from chat import magic, utils
@@ -25,6 +27,7 @@ class Chat(views.View):
         return render(request, 'chat.html')
 
     @staticmethod
+    @method_decorator(ratelimit(key='ip', rate='30/h'))
     def post(request):
         messages = json.loads(request.body)
         response = StreamingHttpResponse(magic.stream_chatting_response(messages), content_type="text/event-stream")
@@ -65,6 +68,7 @@ def analyze(messages: list):
 
 class AnalyzeChat(views.View):
     @staticmethod
+    @method_decorator(ratelimit(key='ip', rate='10/h'))
     def post(request):
         messages = json.loads(request.body)
         job_list = analyze(messages)
