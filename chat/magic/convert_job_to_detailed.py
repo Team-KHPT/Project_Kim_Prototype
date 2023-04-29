@@ -32,7 +32,7 @@ def convert_job_to_detailed(job_cd: str, messages: list) -> str:
         return ''
     else:
         job_cd = int(job_cd)
-    print(get_prompts(job_cd))
+    # print(get_prompts(job_cd))
     if len(utils.get_detailed_job_cd_with(job_cd)) < 1:
         return ''
     messages[:0] = get_prompts(job_cd)

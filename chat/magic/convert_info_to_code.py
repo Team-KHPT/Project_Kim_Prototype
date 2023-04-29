@@ -40,7 +40,7 @@ none은 -1 이라고 출력해줘.
 
 
 def convert_info_to_code(messages: list) -> str:
-    print(prompts)
+    # print(prompts)
     messages[:0] = prompts
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
