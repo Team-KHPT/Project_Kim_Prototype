@@ -9,19 +9,20 @@ def get_cf_connecting_ip(request):
         return "no_cf_ip"
 
 
-def get_client_ip(request) -> str:
+def get_x_forwarded_for(request) -> str:
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
+        return x_forwarded_for
     else:
-        x_real_ip = request.META.get("HTTP_X_REAL_IP")
-        if x_real_ip:
-            print("x_real")
-            ip = x_real_ip
-        else:
-            print("remote_addr")
-            ip = request.META.get('REMOTE_ADDR')
-    return ip
+        return "no_xff"
+
+
+def get_x_real_ip(request) -> str:
+    x_real_ip = request.META.get("HTTP_X_REAL_IP")
+    if x_real_ip:
+        return x_real_ip
+    else:
+        return "no_real_ip"
 
 
 class FilterIPMiddleware:
@@ -31,10 +32,13 @@ class FilterIPMiddleware:
     def __call__(self, request):
         banned_ips = []
 
-        ip1 = get_client_ip(request)
+        ip1 = get_x_forwarded_for(request)
         ip2 = get_cf_connecting_ip(request)
-        print("Client IP:", ip1, "CF_IP:", ip2)
-        if ip1 in banned_ips or ip2 in banned_ips:
+        ip3 = get_x_real_ip(request)
+        print(f"xff: {ip1} cf_ip: {ip2} real_ip: {ip3}")
+        if ip1.split(",")[0] in banned_ips:
+            raise PermissionDenied
+        if ip2 in banned_ips or ip3 in banned_ips:
             raise PermissionDenied
 
         response = self.get_response(request)
