@@ -19,7 +19,7 @@ def stream_chatting_response(messages: list):
     messages[:0] = chatting_prompts
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        max_tokens=512,
+        max_tokens=320,
         temperature=0.4,
         top_p=1,
         frequency_penalty=0.9,
@@ -31,17 +31,3 @@ def stream_chatting_response(messages: list):
         if "content" in chunk['choices'][0]['delta']:
             content = str(chunk['choices'][0]['delta']['content'])
             yield f"{content}"
-
-
-# def chatting_response(messages: list) -> str:
-#     messages[:0] = chatting_prompts
-#     completion = openai.ChatCompletion.create(
-#         model="gpt-3.5-turbo",
-#         max_tokens=512,
-#         temperature=0.4,
-#         top_p=1,
-#         frequency_penalty=0.9,
-#         presence_penalty=0.4,
-#         messages=messages
-#     )
-#     return completion['choices'][0]['message']['content']
