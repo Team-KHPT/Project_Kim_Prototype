@@ -26,7 +26,7 @@ class Chat(views.View):
     def get(request):
         return render(request, 'chat.html')
 
-    @method_decorator(ratelimit(key='ip', rate='100/h'))
+    @method_decorator(ratelimit(key='header:x-real-ip', rate='100/h'))
     def post(self, request):
         messages = json.loads(request.body)
         response = StreamingHttpResponse(magic.stream_chatting_response(messages), content_type="text/event-stream")
@@ -71,7 +71,7 @@ def analyze(messages: list):
 
 
 class AnalyzeChat(views.View):
-    @method_decorator(ratelimit(key='ip', rate='30/h'))
+    @method_decorator(ratelimit(key='header:x-real-ip', rate='30/h'))
     def post(self, request):
         messages = json.loads(request.body)
         job_list = analyze(messages)
