@@ -9,7 +9,7 @@ class FilterIPMiddleware:
     def __call__(self, request):
         banned_ips = []
 
-        print(request.META.get('HTTP_X_FORWARDED_FOR'), request.META.get('HTTP_CF_CONNECTING_IP'))
+        print("LOG:", request.META.get('HTTP_X_FORWARDED_FOR'), request.META.get('HTTP_CF_CONNECTING_IP'))
         ip = request.META.get('HTTP_CF_CONNECTING_IP')
         if ip in banned_ips:
             raise PermissionDenied
