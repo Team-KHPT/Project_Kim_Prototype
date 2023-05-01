@@ -18,14 +18,14 @@ $('#chat-form').submit(function(e) {
     if (message.trim() !== '') {
         // Add the user's message to the chat messages container
         var userContainer = $('<div class="chat"></div>');
-        userContainer.append($('<div class="user_chat"></div>').append($('<code></code>').text(message)));
+        userContainer.append($('<div class="user_chat"></div>').append($('<pre></pre>').text(message)));
         $('#chat-messages').append(userContainer);
 
 
         // Send a POST request to the server with all the chat messages as JSON
         var chatMessages = $('#chat-messages').children().map(function() {
             var role = $(this).hasClass('received') ? 'assistant' : 'user';
-            var content = $(this).children(':last-child').find('code').text();
+            var content = $(this).children(':last-child').find('pre').text();
             return {
                 role: role,
                 content: content
@@ -67,7 +67,7 @@ $('#chat-form').submit(function(e) {
                             if (isFirstChunk) {
                                 assistanceContainer.append($('<div class="assistance_chat"></div>')
                                     .append($('<div class="assistance_profile"><img src="https://blog.kakaocdn.net/dn/b8Kdun/btqCqM43uim/1sWJVkjEEy4LJMfR3mcqxK/img.jpg"></div>'))
-                                    .append($('<code></code>').text(message)));
+                                    .append($('<pre></pre>').text(message)));
                                 $('#chat-messages').append(assistanceContainer);
 
                                 // Scroll the chat messages container to the bottom
@@ -106,7 +106,7 @@ $('#chat-analyze').click(function(e) {
     // Send a POST request to the server with all the chat messages as JSON
     var chatMessages = $('#chat-messages').children().map(function() {
         var role = $(this).hasClass('received') ? 'assistant' : 'user';
-        var content = $(this).find('code').text();
+        var content = $(this).find('pre').text();
         return {
             role: role,
             content: content
@@ -190,7 +190,7 @@ function opening() {
                         if (isFirstChunk) {
                             assistanceContainer.append($('<div class="assistance_chat"></div>')
                                 .append($('<div class="assistance_profile"><img src="https://blog.kakaocdn.net/dn/b8Kdun/btqCqM43uim/1sWJVkjEEy4LJMfR3mcqxK/img.jpg"></div>'))
-                                .append($('<code></code>').text(message)));
+                                .append($('<pre></pre>').text(message)));
                             $('#chat-messages').append(assistanceContainer);
 
                             // Scroll the chat messages container to the bottom
