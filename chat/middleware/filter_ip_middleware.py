@@ -35,7 +35,7 @@ class FilterIPMiddleware:
         ip1 = get_x_forwarded_for(request)
         ip2 = get_cf_connecting_ip(request)
         ip3 = get_x_real_ip(request)
-        print(f"xff: {ip1} cf_ip: {ip2} real_ip: {ip3}")
+        print(f"xf:{ip1} cf:{ip2} rl:{ip3}")
         if ip1.split(",")[0] in banned_ips:
             raise PermissionDenied
         if ip2 in banned_ips or ip3 in banned_ips:
