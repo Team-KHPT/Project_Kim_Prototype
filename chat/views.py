@@ -24,10 +24,16 @@ def opening_comment(request):
 class Chat(views.View):
     @staticmethod
     def get(request):
+        print(end=request.META.get('HTTP_X_FORWARDED_FOR'))
+        print(end=', ')
+        print(end=request.META.get('HTTP_CF_CONNECTING_IP'))
         return render(request, 'chat.html')
 
-    @method_decorator(ratelimit(key='header:x-real-ip', rate='100/h'))
+    @method_decorator(ratelimit(key='header:cf-connecting-ip', rate='20/h'))
     def post(self, request):
+        print(end=request.META.get('HTTP_X_FORWARDED_FOR'))
+        print(end=', ')
+        print(end=request.META.get('HTTP_CF_CONNECTING_IP'))
         messages = json.loads(request.body)
         response = StreamingHttpResponse(magic.stream_chatting_response(messages), content_type="text/event-stream")
         response['Cache-Control'] = 'no-cache'
@@ -71,8 +77,11 @@ def analyze(messages: list):
 
 
 class AnalyzeChat(views.View):
-    @method_decorator(ratelimit(key='header:x-real-ip', rate='30/h'))
+    @method_decorator(ratelimit(key='header:cf-connecting-ip', rate='5/h'))
     def post(self, request):
+        print(end=request.META.get('HTTP_X_FORWARDED_FOR'))
+        print(end=', ')
+        print(end=request.META.get('HTTP_CF_CONNECTING_IP'))
         messages = json.loads(request.body)
         job_list = analyze(messages)
         return JsonResponse({'jobs': job_list})
