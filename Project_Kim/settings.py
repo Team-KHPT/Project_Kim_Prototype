@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 from decouple import config
 
@@ -22,6 +23,34 @@ CACHES = {
     }
 }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+        },
+    },
+    'loggers': {
+        'django.server': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+    },
+    'filters': {
+        'status_200_filter': {
+            '()': 'django.utils.log.CallbackFilter',
+            'callback': lambda record: record.status_code == 200,
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+        'filters': ['status_200_filter'],
+    },
+}
 
 INSTALLED_APPS = [
     'django.contrib.auth',
